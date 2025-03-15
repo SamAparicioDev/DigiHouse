@@ -38,6 +38,7 @@ public class SecurityConfig {
                         authorizeRequests
                                 .requestMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html", "/h2-console/**").permitAll()
                                 .requestMatchers("/api/auth/login", "/index.html").permitAll()
+                                .requestMatchers("/api/user/*").permitAll()
                                 .requestMatchers("/api/auth/admin").authenticated()
                                 .requestMatchers("/api/module/*").authenticated()
                                 .requestMatchers("/api/receptionist/*").permitAll()
