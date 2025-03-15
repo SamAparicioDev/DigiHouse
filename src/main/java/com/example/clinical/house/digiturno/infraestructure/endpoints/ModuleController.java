@@ -15,7 +15,7 @@ import java.util.List;
 public class ModuleController {
     @Autowired
     private ModuleService moduleService;
-    @GetMapping
+    @GetMapping("/get")
     public ResponseEntity<List<Module>> getAllModules(){
         return new ResponseEntity<>(moduleService.listAll(), HttpStatus.OK);
     }
