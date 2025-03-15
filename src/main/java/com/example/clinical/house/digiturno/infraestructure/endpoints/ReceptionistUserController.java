@@ -18,7 +18,7 @@ public class ReceptionistUserController {
     @Autowired
     private ReceptionistUserService receptionistUserService;
 
-    @PostMapping
+    @PostMapping("/save")
     public ResponseEntity<ReceptionistUser> createReceptionistUser(@RequestBody ReceptionistUserDTO receptionistUser) {
         return new ResponseEntity<>(receptionistUserService.createReceptionistUser(receptionistUser), HttpStatus.CREATED);
     }

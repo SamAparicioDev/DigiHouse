@@ -40,6 +40,7 @@ public class SecurityConfig {
                                 .requestMatchers("/api/auth/login", "/index.html").permitAll()
                                 .requestMatchers("/api/auth/admin").authenticated()
                                 .requestMatchers("/api/module/*").authenticated()
+                                .requestMatchers("/api/receptionist/*").permitAll()
                 )
                 .formLogin(AbstractHttpConfigurer::disable)
                 .httpBasic(AbstractHttpConfigurer::disable)
