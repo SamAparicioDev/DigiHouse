@@ -1,6 +1,7 @@
 package com.example.clinical.house.digiturno.infraestructure.endpoints;
 
 import com.example.clinical.house.digiturno.aplication.dtos.GeneralUserDTO;
+import com.example.clinical.house.digiturno.aplication.dtos.UserState;
 import com.example.clinical.house.digiturno.domain.services.GeneralUserService;
 import com.example.clinical.house.digiturno.infraestructure.entities.GeneralUser;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,8 +32,8 @@ public class GeneralUserController {
         return new ResponseEntity<>(generalUserService.getGeneralUserById(id), HttpStatus.OK);
     }
     @PutMapping("/update/{id}")
-    public ResponseEntity<GeneralUser> updateGeneralUserById(@PathVariable UUID id, @RequestBody GeneralUserDTO generalUser) {
-        return new ResponseEntity<>(generalUserService.updateGeneralUser(id, generalUser), HttpStatus.OK);
+    public ResponseEntity<GeneralUser> updateGeneralUserById(@PathVariable UUID id, @RequestBody UserState userState) {
+        return new ResponseEntity<>(generalUserService.updateGeneralUserState(id, userState), HttpStatus.OK);
     }
     @DeleteMapping("/delete{id}")
     public ResponseEntity<GeneralUser> deleteGeneralUserById(@PathVariable UUID id) {

@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
 import java.util.UUID;
 
 @Table(name = "module")
@@ -16,9 +17,10 @@ import java.util.UUID;
 public class Module {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID id;
+    private UUID moduleId;
     @Setter
     private String name;
+
 
     public Module(String name) {
         this.name = name;

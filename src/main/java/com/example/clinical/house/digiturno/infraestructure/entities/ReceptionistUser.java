@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -17,7 +18,7 @@ public class ReceptionistUser {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID id;
+    private UUID receptionistUserId;
     @Column(unique = true, nullable = false)
     @Setter
     private String username;
@@ -34,5 +35,6 @@ public class ReceptionistUser {
         this.password = password;
         this.name = name;
         this.lastName = lastName;
+
     }
 }

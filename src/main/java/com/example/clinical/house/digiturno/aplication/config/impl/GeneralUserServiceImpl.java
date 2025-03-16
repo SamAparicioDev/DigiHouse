@@ -2,10 +2,15 @@ package com.example.clinical.house.digiturno.aplication.config.impl;
 
 import com.example.clinical.house.digiturno.aplication.config.exceptions.generalUser.GeneralUserNotFoundException;
 import com.example.clinical.house.digiturno.aplication.dtos.GeneralUserDTO;
+import com.example.clinical.house.digiturno.aplication.dtos.UserState;
 import com.example.clinical.house.digiturno.domain.mapper.GeneralUserMapper;
 import com.example.clinical.house.digiturno.domain.services.GeneralUserService;
 import com.example.clinical.house.digiturno.infraestructure.entities.GeneralUser;
+import com.example.clinical.house.digiturno.infraestructure.entities.Module;
+import com.example.clinical.house.digiturno.infraestructure.entities.ReceptionistUser;
 import com.example.clinical.house.digiturno.infraestructure.repositories.GeneralUserRepository;
+import com.example.clinical.house.digiturno.infraestructure.repositories.ModuleRepository;
+import com.example.clinical.house.digiturno.infraestructure.repositories.ReceptionistUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +20,12 @@ import java.util.UUID;
 public class GeneralUserServiceImpl implements GeneralUserService {
     @Autowired
     private GeneralUserRepository generalUserRepository;
+
+    @Autowired
+    private ModuleRepository moduleRepository;
+
+    @Autowired
+    private ReceptionistUserRepository receptionistUserRepository;
     @Override
     public List<GeneralUser> listAllGeneralUsers() {
         return generalUserRepository.findAll();
@@ -27,13 +38,17 @@ public class GeneralUserServiceImpl implements GeneralUserService {
 
     @Override
     public GeneralUser createGeneralUser(GeneralUserDTO generalUser) {
-       return generalUserRepository.save(GeneralUserMapper.generalUserDtoToGeneralUser(generalUser));
+                Module module = moduleRepository.findById(generalUser.module().getModuleId()).orElseThrow();
+                ReceptionistUser receptionistUser = receptionistUserRepository.findById(generalUser.receptionistUser().getReceptionistUserId()).orElseThrow();
+       return generalUserRepository.save(new GeneralUser(generalUser.id(),generalUser.nit(),generalUser.name(),generalUser.lastName(),generalUser.userState(),
+               receptionistUser,module));
     }
 
     @Override
-    public GeneralUser updateGeneralUser(UUID id,GeneralUserDTO generalUser) {
+    public GeneralUser updateGeneralUserState(UUID id, UserState userState) {
         GeneralUser generalUserFound = generalUserRepository.getReferenceById(id);
-        return generalUserRepository.save(GeneralUserMapper.generalUserDtoUpdate(generalUserFound, generalUser));
+        generalUserFound.setState(userState);
+        return generalUserRepository.save(generalUserFound);
     }
 
     @Override
