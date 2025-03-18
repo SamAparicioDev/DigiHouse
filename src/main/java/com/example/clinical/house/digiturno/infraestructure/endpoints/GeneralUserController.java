@@ -36,9 +36,9 @@ public class GeneralUserController {
         return new ResponseEntity<>(generalUserService.updateGeneralUserState(id, userState), HttpStatus.OK);
     }
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<GeneralUser> deleteGeneralUserById(@PathVariable UUID id) {
+    public ResponseEntity<String> deleteGeneralUserById(@PathVariable UUID id) {
         generalUserService.deleteGeneralUser(id);
-        return new ResponseEntity<>(generalUserService.getGeneralUserById(id), HttpStatus.OK);
+        return new ResponseEntity<>("User has been removed", HttpStatus.OK);
     }
 
 
