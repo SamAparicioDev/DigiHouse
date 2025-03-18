@@ -35,7 +35,7 @@ public class GeneralUserController {
     public ResponseEntity<GeneralUser> updateGeneralUserById(@PathVariable UUID id, @RequestBody UserState userState) {
         return new ResponseEntity<>(generalUserService.updateGeneralUserState(id, userState), HttpStatus.OK);
     }
-    @DeleteMapping("/delete{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<GeneralUser> deleteGeneralUserById(@PathVariable UUID id) {
         generalUserService.deleteGeneralUser(id);
         return new ResponseEntity<>(generalUserService.getGeneralUserById(id), HttpStatus.OK);
