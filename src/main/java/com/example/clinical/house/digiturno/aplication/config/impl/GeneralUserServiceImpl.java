@@ -3,11 +3,9 @@ package com.example.clinical.house.digiturno.aplication.config.impl;
 import com.example.clinical.house.digiturno.aplication.config.exceptions.generalUser.GeneralUserNotFoundException;
 import com.example.clinical.house.digiturno.aplication.dtos.GeneralUserDTO;
 import com.example.clinical.house.digiturno.aplication.dtos.UserState;
-import com.example.clinical.house.digiturno.domain.mapper.GeneralUserMapper;
 import com.example.clinical.house.digiturno.domain.services.GeneralUserService;
 import com.example.clinical.house.digiturno.infraestructure.entities.GeneralUser;
 import com.example.clinical.house.digiturno.infraestructure.entities.Module;
-import com.example.clinical.house.digiturno.infraestructure.entities.ReceptionistUser;
 import com.example.clinical.house.digiturno.infraestructure.repositories.GeneralUserRepository;
 import com.example.clinical.house.digiturno.infraestructure.repositories.ModuleRepository;
 import com.example.clinical.house.digiturno.infraestructure.repositories.ReceptionistUserRepository;
@@ -39,15 +37,13 @@ public class GeneralUserServiceImpl implements GeneralUserService {
     @Override
     public GeneralUser createGeneralUser(GeneralUserDTO generalUser) {
                 Module module = moduleRepository.findById(generalUser.module().getModuleId()).orElseThrow();
-                ReceptionistUser receptionistUser = receptionistUserRepository.findById(generalUser.receptionistUser().getReceptionistUserId()).orElseThrow();
-       return generalUserRepository.save(new GeneralUser(generalUser.id(),generalUser.nit(),generalUser.name(),generalUser.lastName(),generalUser.userState(),
-               receptionistUser,module));
+       return generalUserRepository.save(new GeneralUser(generalUser.nit(),generalUser.name(),generalUser.lastName(),module));
     }
 
     @Override
     public GeneralUser updateGeneralUserState(UUID id, UserState userState) {
         GeneralUser generalUserFound = generalUserRepository.getReferenceById(id);
-        generalUserFound.setState(userState);
+        generalUserFound.setUserState(userState);
         return generalUserRepository.save(generalUserFound);
     }
 

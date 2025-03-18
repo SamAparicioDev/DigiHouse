@@ -39,7 +39,7 @@ public class JwtUtils {
     }
 
     public String extractUsername(String token) {
-        System.out.println(parseClaims(token).getSubject());
+        //System.out.println(parseClaims(token).getSubject());
         return parseClaims(token).getSubject();
     }
 
