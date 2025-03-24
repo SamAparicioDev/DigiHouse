@@ -32,15 +32,24 @@ public class GeneralUser {
     @JsonSetter(nulls = Nulls.SKIP)
     private UserState userState = UserState.ESPERA;
 
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "module_id")
+    @Setter
     private Module module;
 
-    public GeneralUser(Long nit, String name, String lastName, Module module) {
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "consulting_room_id")
+    @Setter
+    private ConsultingRoom consultingRoom;
+
+    public GeneralUser(Long nit, String name, String lastName, Module module, ConsultingRoom consultingRoom) {
         this.nit = nit;
         this.name = name;
         this.lastName = lastName;
         this.module = module;
+        this.consultingRoom = consultingRoom;
     }
 
 }

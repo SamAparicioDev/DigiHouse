@@ -9,19 +9,19 @@ import lombok.Setter;
 import java.util.UUID;
 
 @Entity
-@Table(name = "consulting_room")
-@AllArgsConstructor
-@NoArgsConstructor
+@Table(name = "rol_user")
 @Getter
-public class ConsultingRoom {
+@NoArgsConstructor
+@AllArgsConstructor
+public class RolUser {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID consultingRoomId;
+    private UUID rolUserId;
+    @Column(unique = true,nullable = false)
     @Setter
-    @Column(unique = true, nullable = false)
     private String name;
 
-    public ConsultingRoom(String name) {
+    public RolUser(String name) {
         this.name = name;
     }
 }

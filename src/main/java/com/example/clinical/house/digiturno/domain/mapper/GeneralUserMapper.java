@@ -6,7 +6,7 @@ import com.example.clinical.house.digiturno.infraestructure.entities.GeneralUser
 
 public class GeneralUserMapper {
     public static GeneralUser generalUserDtoToGeneralUser(GeneralUserDTO generalUserDTO){
-        return new GeneralUser(generalUserDTO.nit(), generalUserDTO.name(), generalUserDTO.lastName(),generalUserDTO.module());
+        return new GeneralUser(generalUserDTO.nit(), generalUserDTO.name(), generalUserDTO.lastName(),generalUserDTO.module(), generalUserDTO.consultingRoom());
     }
     public static GeneralUser generalUserDtoUpdate(GeneralUser generalUser, GeneralUserDTO generalUserDTO){
         generalUser.setName(generalUserDTO.name());
