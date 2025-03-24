@@ -3,6 +3,7 @@ package com.example.clinical.house.digiturno.infraestructure.entities;
 import com.example.clinical.house.digiturno.aplication.dtos.UserState;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.annotation.Nulls;
+import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -33,14 +34,14 @@ public class GeneralUser {
     private UserState userState = UserState.ESPERA;
 
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "module_id")
+    @ManyToOne
+    @JoinColumn(name = "module_id", nullable = true)
     @Setter
     private Module module;
 
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "consulting_room_id")
+    @ManyToOne
+    @JoinColumn(name = "consulting_room_id", nullable = true)
     @Setter
     private ConsultingRoom consultingRoom;
 
@@ -50,6 +51,12 @@ public class GeneralUser {
         this.lastName = lastName;
         this.module = module;
         this.consultingRoom = consultingRoom;
+    }
+
+    public GeneralUser(Long nit, String name, String lastName) {
+        this.nit = nit;
+        this.name = name;
+        this.lastName = lastName;
     }
 
 }

@@ -7,7 +7,6 @@ import com.example.clinical.house.digiturno.domain.services.GeneralUserService;
 import com.example.clinical.house.digiturno.infraestructure.entities.ConsultingRoom;
 import com.example.clinical.house.digiturno.infraestructure.entities.GeneralUser;
 import com.example.clinical.house.digiturno.infraestructure.entities.Module;
-import com.example.clinical.house.digiturno.infraestructure.entities.RolUser;
 import com.example.clinical.house.digiturno.infraestructure.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,7 +28,7 @@ public class GeneralUserServiceImpl implements GeneralUserService {
     private ConsultingRoomRepository consultingRoomRepository;
 
     @Autowired
-    private ReceptionistUserRepository receptionistUserRepository;
+    private EmployeeUserRepository employeeUserRepository;
     @Override
     public List<GeneralUser> listAllGeneralUsers() {
         return generalUserRepository.findAll();
@@ -42,9 +41,12 @@ public class GeneralUserServiceImpl implements GeneralUserService {
 
     @Override
     public GeneralUser createGeneralUser(GeneralUserDTO generalUser) {
-                Module module = moduleRepository.findById(generalUser.module().getModuleId()).orElseThrow();
-                ConsultingRoom consultingRoom = consultingRoomRepository.findById(generalUser.consultingRoom().getConsultingRoomId()).orElseThrow(RuntimeException::new);
-       return generalUserRepository.save(new GeneralUser(generalUser.nit(),generalUser.name(),generalUser.lastName(),module, consultingRoom));
+                if(generalUser.consultingRoom() != null && generalUser.module() != null) {
+                    Module module = moduleRepository.findById(generalUser.module().getModuleId()).orElseThrow();
+                    ConsultingRoom consultingRoom = consultingRoomRepository.findById(generalUser.consultingRoom().getConsultingRoomId()).orElseThrow(RuntimeException::new);
+                    return generalUserRepository.save(new GeneralUser(generalUser.nit(),generalUser.name(),generalUser.lastName(),module, consultingRoom));
+                }
+                return generalUserRepository.save(new GeneralUser(generalUser.nit(),generalUser.name(),generalUser.lastName()));
     }
 
     @Override
