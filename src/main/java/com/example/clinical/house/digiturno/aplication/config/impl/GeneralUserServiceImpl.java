@@ -41,9 +41,9 @@ public class GeneralUserServiceImpl implements GeneralUserService {
 
     @Override
     public GeneralUser createGeneralUser(GeneralUserDTO generalUser) {
-                if(generalUser.consultingRoom() != null && generalUser.module() != null) {
-                    Module module = moduleRepository.findById(generalUser.module().getModuleId()).orElseThrow();
-                    ConsultingRoom consultingRoom = consultingRoomRepository.findById(generalUser.consultingRoom().getConsultingRoomId()).orElseThrow(RuntimeException::new);
+                if(generalUser.consultingRoomId() != null && generalUser.moduleId() != null) {
+                    Module module = moduleRepository.findById(generalUser.moduleId()).orElseThrow();
+                    ConsultingRoom consultingRoom = consultingRoomRepository.findById(generalUser.consultingRoomId()).orElseThrow(RuntimeException::new);
                     return generalUserRepository.save(new GeneralUser(generalUser.nit(),generalUser.name(),generalUser.lastName(),module, consultingRoom));
                 }
                 return generalUserRepository.save(new GeneralUser(generalUser.nit(),generalUser.name(),generalUser.lastName()));

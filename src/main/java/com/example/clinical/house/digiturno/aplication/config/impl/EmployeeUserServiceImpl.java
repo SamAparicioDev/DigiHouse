@@ -36,7 +36,7 @@ public class EmployeeUserServiceImpl implements EmployeeUserService {
 
     @Override
     public EmployeeUser createEmployeeUser(EmployeeUserDTO employeeUserDTO) {
-        RolUser rolUser = rolUserRepository.findById(employeeUserDTO.rolUser().getRolUserId()).orElseThrow(()-> new EmployeeUserNotFoundException("Rol User Not Found"));
+        RolUser rolUser = rolUserRepository.findById(employeeUserDTO.rolUserId()).orElseThrow(()-> new EmployeeUserNotFoundException("Rol User Not Found"));
         return employeeUserRepository.save(new EmployeeUser(employeeUserDTO.username(), passwordEncoder.encode(employeeUserDTO.password()), employeeUserDTO.name(), employeeUserDTO.lastName(), rolUser));
     }
 
