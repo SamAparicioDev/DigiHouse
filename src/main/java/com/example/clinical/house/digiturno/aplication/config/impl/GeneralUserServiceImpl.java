@@ -8,11 +8,14 @@ import com.example.clinical.house.digiturno.infraestructure.entities.ConsultingR
 import com.example.clinical.house.digiturno.infraestructure.entities.GeneralUser;
 import com.example.clinical.house.digiturno.infraestructure.entities.Module;
 import com.example.clinical.house.digiturno.infraestructure.repositories.*;
+import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.UUID;
+
+
 @Service
 public class GeneralUserServiceImpl implements GeneralUserService {
     @Autowired
@@ -68,4 +71,25 @@ public class GeneralUserServiceImpl implements GeneralUserService {
     public void deleteGeneralUser(UUID id) {
          generalUserRepository.deleteById(id);
     }
+
+    @Override
+    public List<GeneralUser> findByConsultingRoomId(UUID consultingRoomId) {
+        return generalUserRepository.findByConsultingRoomId(consultingRoomId);
+    }
+
+    @Override
+    public List<GeneralUser> findAll() {
+        return generalUserRepository.findAll();
+    }
+
+    @Override
+    public List<GeneralUser> getUsersByModuleId(UUID moduleId) {
+        return generalUserRepository.findByModuleId(moduleId);
+    }
+
+    @Override
+    public List<GeneralUser> getUsersWithModuleOnly() {
+        return generalUserRepository.findAllWithModuleAndNoConsultingRoom();
+    }
+
 }
