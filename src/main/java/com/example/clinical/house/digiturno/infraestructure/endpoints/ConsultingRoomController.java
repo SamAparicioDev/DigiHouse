@@ -18,24 +18,28 @@ public class ConsultingRoomController {
     private ConsultingRoomService consultingRoomService;
 
     @GetMapping("/get")
-    public ResponseEntity<List<ConsultingRoom>> getAllConsultingRooms(){
-        return new ResponseEntity<>(consultingRoomService.getAllConsultingRooms(), HttpStatus.OK);
+    public ResponseEntity<List<ConsultingRoom>> getConsultingRooms(@RequestParam UUID headquarterId) {
+        return new ResponseEntity<>(consultingRoomService.getConsultingRoomsByHeadquarter(headquarterId), HttpStatus.OK);
     }
+
     @GetMapping("/get/{id}")
-    public ResponseEntity<ConsultingRoom> getConsultingRoomById(@PathVariable UUID id){
+    public ResponseEntity<ConsultingRoom> getConsultingRoomById(@PathVariable UUID id) {
         return new ResponseEntity<>(consultingRoomService.getConsultingRoomById(id), HttpStatus.OK);
     }
+
     @PutMapping("/update/{id}")
-    public ResponseEntity<ConsultingRoom> updateConsultingRoomById(@PathVariable UUID id, @RequestBody ConsultingRoomDTO consultingRoom){
-        return new ResponseEntity<>(consultingRoomService.updateConsultingRoomById(id, consultingRoom),HttpStatus.OK);
+    public ResponseEntity<ConsultingRoom> updateConsultingRoomById(@PathVariable UUID id, @RequestBody ConsultingRoomDTO consultingRoom) {
+        return new ResponseEntity<>(consultingRoomService.updateConsultingRoomById(id, consultingRoom), HttpStatus.OK);
     }
+
     @PostMapping("/save")
-    public ResponseEntity<ConsultingRoom> saveConsultingRoom(@RequestBody ConsultingRoomDTO consultingRoom){
+    public ResponseEntity<ConsultingRoom> saveConsultingRoom(@RequestBody ConsultingRoomDTO consultingRoom) {
         return new ResponseEntity<>(consultingRoomService.saveConsultingRoom(consultingRoom), HttpStatus.CREATED);
     }
+
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<String> deleteConsultingRoomById(@PathVariable UUID id){
+    public ResponseEntity<String> deleteConsultingRoomById(@PathVariable UUID id) {
         consultingRoomService.deleteConsultingRoomById(id);
-        return new ResponseEntity<>("Consulting Room has been removed",HttpStatus.OK);
+        return new ResponseEntity<>("Consulting Room has been removed", HttpStatus.OK);
     }
 }

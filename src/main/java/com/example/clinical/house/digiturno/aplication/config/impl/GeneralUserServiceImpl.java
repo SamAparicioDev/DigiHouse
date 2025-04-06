@@ -6,6 +6,7 @@ import com.example.clinical.house.digiturno.aplication.dtos.UserState;
 import com.example.clinical.house.digiturno.domain.services.GeneralUserService;
 import com.example.clinical.house.digiturno.infraestructure.entities.ConsultingRoom;
 import com.example.clinical.house.digiturno.infraestructure.entities.GeneralUser;
+import com.example.clinical.house.digiturno.infraestructure.entities.Headquarter;
 import com.example.clinical.house.digiturno.infraestructure.entities.Module;
 import com.example.clinical.house.digiturno.infraestructure.repositories.*;
 import org.apache.catalina.User;
@@ -32,6 +33,10 @@ public class GeneralUserServiceImpl implements GeneralUserService {
 
     @Autowired
     private EmployeeUserRepository employeeUserRepository;
+
+    @Autowired
+    private HeadquarterRepository headquarterRepository;
+
     @Override
     public List<GeneralUser> listAllGeneralUsers() {
         return generalUserRepository.findAll();
@@ -45,18 +50,31 @@ public class GeneralUserServiceImpl implements GeneralUserService {
     @Override
     public GeneralUser createGeneralUser(GeneralUserDTO generalUser) {
         Module module = null;
-        ConsultingRoom consultingRoom = null;
-        if (generalUser.moduleId() != null) {
+        if (generalUser.moduleId() != null)
             module = moduleRepository.findById(generalUser.moduleId())
-                    .orElseThrow(() -> new RuntimeException("Módulo no encontrado"));
-        }
-        if (generalUser.consultingRoomId() != null) {
+                    .orElseThrow(() -> new RuntimeException("Module not found"));
+
+        ConsultingRoom consultingRoom = null;
+        if (generalUser.consultingRoomId() != null)
             consultingRoom = consultingRoomRepository.findById(generalUser.consultingRoomId())
-                    .orElseThrow(() -> new RuntimeException("Consultorio no encontrado"));
-        }
-        return generalUserRepository.save(
-                new GeneralUser(generalUser.nit(), generalUser.name(), generalUser.lastName(), module, consultingRoom)
+                    .orElseThrow(() -> new RuntimeException("Consulting room not found"));
+
+        Headquarter headquarter = null;
+        if (generalUser.headquarterId() != null)
+            headquarter = headquarterRepository.findById(generalUser.headquarterId())
+                    .orElseThrow(() -> new RuntimeException("Headquarter not found"));
+
+        GeneralUser user = new GeneralUser(
+                generalUser.nit(),
+                generalUser.name(),
+                generalUser.lastName(),
+                module,
+                consultingRoom
         );
+        user.setUserState(generalUser.userState());
+        user.setHeadquarter(headquarter);
+
+        return generalUserRepository.save(user);
     }
 
 
@@ -69,27 +87,28 @@ public class GeneralUserServiceImpl implements GeneralUserService {
 
     @Override
     public void deleteGeneralUser(UUID id) {
-         generalUserRepository.deleteById(id);
-    }
-
-    @Override
-    public List<GeneralUser> findByConsultingRoomId(UUID consultingRoomId) {
-        return generalUserRepository.findByConsultingRoomId(consultingRoomId);
-    }
-
-    @Override
-    public List<GeneralUser> findAll() {
-        return generalUserRepository.findAll();
-    }
-
-    @Override
-    public List<GeneralUser> getUsersByModuleId(UUID moduleId) {
-        return generalUserRepository.findByModuleId(moduleId);
+        generalUserRepository.deleteById(id);
     }
 
     @Override
     public List<GeneralUser> getUsersWithModuleOnly() {
         return generalUserRepository.findAllWithModuleAndNoConsultingRoom();
     }
+
+    @Override
+    public List<GeneralUser> getUsersByHeadquarterAndModule(UUID headquarterId, UUID moduleId) {
+        return generalUserRepository.findByHeadquarterIdAndModuleId(headquarterId, moduleId);
+    }
+
+    @Override
+    public List<GeneralUser> findByConsultingRoomAndHeadquarter(UUID consultingRoomId, UUID headquarterId) {
+        return generalUserRepository.findByConsultingRoom_ConsultingRoomIdAndHeadquarter_Id(consultingRoomId, headquarterId);
+    }
+
+    @Override
+    public List<GeneralUser> getUsersWithModuleOnlyBySede(UUID headquarterId) {
+        return generalUserRepository.findByModuleOnlyAndHeadquarterId(headquarterId);
+    }
+
 
 }

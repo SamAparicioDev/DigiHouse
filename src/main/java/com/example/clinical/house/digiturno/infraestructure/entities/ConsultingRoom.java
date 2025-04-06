@@ -1,5 +1,6 @@
 package com.example.clinical.house.digiturno.infraestructure.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -18,10 +19,18 @@ public class ConsultingRoom {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID consultingRoomId;
     @Setter
-    @Column(unique = true, nullable = false)
+    @Column(nullable = false)
     private String name;
 
-    public ConsultingRoom(String name) {
+    @Setter
+    @ManyToOne
+    @JoinColumn(name = "headquarter_id")
+    @JsonIgnore
+    private Headquarter headquarter;
+
+
+    public ConsultingRoom(String name, Headquarter headquarter) {
         this.name = name;
+        this.headquarter = headquarter;
     }
 }

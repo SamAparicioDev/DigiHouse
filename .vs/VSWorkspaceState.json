@@ -1,0 +1,17 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\src",
+    "\\src\\main",
+    "\\src\\main\\java",
+    "\\src\\main\\java\\com",
+    "\\src\\main\\java\\com\\example",
+    "\\src\\main\\java\\com\\example\\clinical",
+    "\\src\\main\\java\\com\\example\\clinical\\house",
+    "\\src\\main\\java\\com\\example\\clinical\\house\\digiturno",
+    "\\src\\main\\java\\com\\example\\clinical\\house\\digiturno\\aplication",
+    "\\src\\main\\java\\com\\example\\clinical\\house\\digiturno\\aplication\\config"
+  ],
+  "SelectedNode": "\\src\\main\\resources",
+  "PreviewInSolutionExplorer": false
+}

@@ -5,8 +5,8 @@ import com.example.clinical.house.digiturno.infraestructure.entities.Module;
 
 import java.util.UUID;
 
-public record GeneralUserDTO(Long nit, String name, String lastName, UserState userState
-                            , UUID moduleId, UUID consultingRoomId) {
+public record GeneralUserDTO(Long nit, String name, String lastName, UserState userState, String email
+        , UUID moduleId, UUID consultingRoomId, UUID headquarterId) {
 
 }
 

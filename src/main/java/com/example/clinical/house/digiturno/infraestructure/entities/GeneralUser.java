@@ -9,6 +9,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
 import java.util.UUID;
 
 @Entity
@@ -44,6 +45,12 @@ public class GeneralUser {
     @JoinColumn(name = "consulting_room_id", nullable = true)
     @Setter
     private ConsultingRoom consultingRoom;
+
+    @ManyToOne
+    @JoinColumn(name = "headquarter_id", nullable = true)
+    @Setter
+    private Headquarter headquarter;
+
 
     public GeneralUser(Long nit, String name, String lastName, Module module, ConsultingRoom consultingRoom) {
         this.nit = nit;

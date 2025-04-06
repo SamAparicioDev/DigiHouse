@@ -30,21 +30,15 @@ public class GeneralUserController {
     }
 
     @GetMapping("/get/consultory")
-    public ResponseEntity<List<GeneralUser>> getUsers(@RequestParam(required = false) UUID consultingRoomId) {
-        if (consultingRoomId != null) {
-            return new ResponseEntity<>(generalUserService.findByConsultingRoomId(consultingRoomId), HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(generalUserService.findAll(), HttpStatus.OK);
-        }
+    public ResponseEntity<List<GeneralUser>> getUsers(@RequestParam UUID consultingRoomId, @RequestParam UUID headquarterId) {
+        List<GeneralUser> users = generalUserService.findByConsultingRoomAndHeadquarter(consultingRoomId, headquarterId);
+        return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
+
     @GetMapping("/get/module")
-    public ResponseEntity<List<GeneralUser>> getUsersByModule(@RequestParam(required = false) UUID moduleId) {
-        if (moduleId != null) {
-            return ResponseEntity.ok(generalUserService.getUsersByModuleId(moduleId));
-        } else {
-            return ResponseEntity.ok(generalUserService.findAll());
-        }
+    public ResponseEntity<List<GeneralUser>> getUsersByModuleAndSede(@RequestParam UUID headquarterId, @RequestParam UUID moduleId) {
+        return ResponseEntity.ok(generalUserService.getUsersByHeadquarterAndModule(headquarterId, moduleId));
     }
 
     @GetMapping("/get/{id}")
@@ -67,5 +61,11 @@ public class GeneralUserController {
     public ResponseEntity<List<GeneralUser>> getUsersForTV() {
         return new ResponseEntity<>(generalUserService.getUsersWithModuleOnly(), HttpStatus.OK);
     }
+
+    @GetMapping("/get/tv/{headquarterId}")
+    public ResponseEntity<List<GeneralUser>> getUsersForTV(@PathVariable UUID headquarterId) {
+        return new ResponseEntity<>(generalUserService.getUsersWithModuleOnlyBySede(headquarterId), HttpStatus.OK);
+    }
+
 
 }

@@ -19,12 +19,11 @@ public interface GeneralUserService {
 
     void deleteGeneralUser(UUID id);
 
-    List<GeneralUser> findByConsultingRoomId(UUID consultingRoomId);
-
-    List<GeneralUser> findAll();
-
-    List<GeneralUser> getUsersByModuleId(UUID moduleId);
-
     List<GeneralUser> getUsersWithModuleOnly();
 
+    List<GeneralUser> getUsersByHeadquarterAndModule(UUID headquarterId, UUID moduleId);
+
+    List<GeneralUser> findByConsultingRoomAndHeadquarter(UUID consultingRoomId, UUID headquarterId);
+
+    List<GeneralUser> getUsersWithModuleOnlyBySede(UUID headquarterId);
 }

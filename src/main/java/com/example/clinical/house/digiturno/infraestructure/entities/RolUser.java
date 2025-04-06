@@ -17,7 +17,7 @@ public class RolUser {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID rolUserId;
-    @Column(unique = true,nullable = false)
+    @Column(unique = true, nullable = false)
     @Setter
     private String name;
 

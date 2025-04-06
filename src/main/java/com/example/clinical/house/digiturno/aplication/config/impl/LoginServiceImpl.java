@@ -20,7 +20,7 @@ public class LoginServiceImpl implements LoginService {
     private JwtUtils jwtUtil;
 
 
-    public String authenticateUser(LoginRequest loginRequest){
+    public String authenticateUser(LoginRequest loginRequest) {
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         loginRequest.username(),

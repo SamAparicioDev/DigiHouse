@@ -1,4 +1,6 @@
 package com.example.clinical.house.digiturno.aplication.dtos;
 
-public record ConsultingRoomDTO(String name) {
+import java.util.UUID;
+
+public record ConsultingRoomDTO(String name, UUID headquarterId) {
 }

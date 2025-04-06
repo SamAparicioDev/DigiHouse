@@ -12,5 +12,7 @@ import java.util.UUID;
 
 @Repository
 public interface ModuleRepository extends JpaRepository<Module, UUID> {
+    @Query("SELECT m FROM Module m WHERE m.headquarter.id = :headquarterId")
+    List<Module> findByHeadquarterId(@Param("headquarterId") UUID headquarterId);
 
 }

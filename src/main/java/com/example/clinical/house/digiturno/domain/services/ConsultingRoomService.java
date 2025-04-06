@@ -8,8 +8,15 @@ import java.util.UUID;
 
 public interface ConsultingRoomService {
     List<ConsultingRoom> getAllConsultingRooms();
+
+    public List<ConsultingRoom> getConsultingRoomsByHeadquarter(UUID headquarterId);
+
     ConsultingRoom getConsultingRoomById(UUID id);
+
     ConsultingRoom saveConsultingRoom(ConsultingRoomDTO consultingRoom);
-    ConsultingRoom updateConsultingRoomById(UUID id,ConsultingRoomDTO consultingRoomDTO);
+
+    ConsultingRoom updateConsultingRoomById(UUID id, ConsultingRoomDTO consultingRoomDTO);
+
     void deleteConsultingRoomById(UUID id);
+
 }

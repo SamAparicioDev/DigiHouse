@@ -21,4 +21,13 @@ public interface GeneralUserRepository extends JpaRepository<GeneralUser, UUID> 
     @Query("SELECT g FROM GeneralUser g WHERE g.module IS NOT NULL AND g.consultingRoom IS NULL")
     List<GeneralUser> findAllWithModuleAndNoConsultingRoom();
 
+    @Query("SELECT u FROM GeneralUser u WHERE u.headquarter.id = :headquarterId AND u.module.moduleId = :moduleId")
+    List<GeneralUser> findByHeadquarterIdAndModuleId(@Param("headquarterId") UUID headquarterId, @Param("moduleId") UUID moduleId);
+
+    List<GeneralUser> findByConsultingRoom_ConsultingRoomIdAndHeadquarter_Id(UUID consultingRoomId, UUID headquarterId);
+
+    @Query("SELECT u FROM GeneralUser u WHERE u.module IS NOT NULL AND u.consultingRoom IS NULL AND u.module.headquarter.id = :headquarterId")
+    List<GeneralUser> findByModuleOnlyAndHeadquarterId(@Param("headquarterId") UUID headquarterId);
+
+
 }

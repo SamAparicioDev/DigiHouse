@@ -22,18 +22,22 @@ public class RolUserController {
     public ResponseEntity<RolUser> getRolUserById(@PathVariable UUID id) {
         return new ResponseEntity<>(rolUserService.getById(id), HttpStatus.OK);
     }
+
     @GetMapping("/get")
     public ResponseEntity<List<RolUser>> getAllRolUsers() {
         return new ResponseEntity<>(rolUserService.getAll(), HttpStatus.OK);
     }
+
     @PutMapping("/update/{id}")
-    public ResponseEntity<RolUser> updateRolUserById(@PathVariable UUID id,@RequestBody RolUserDTO rolUser) {
+    public ResponseEntity<RolUser> updateRolUserById(@PathVariable UUID id, @RequestBody RolUserDTO rolUser) {
         return new ResponseEntity<>(rolUserService.updateRolUserById(id, rolUser), HttpStatus.OK);
     }
+
     @PostMapping("/save")
     public ResponseEntity<RolUser> saveRolUser(@RequestBody RolUserDTO rolUser) {
         return new ResponseEntity<>(rolUserService.saveRolUser(rolUser), HttpStatus.CREATED);
     }
+
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<String> deleteRolUserById(@PathVariable UUID id) {
         rolUserService.deleteRolUserById(id);

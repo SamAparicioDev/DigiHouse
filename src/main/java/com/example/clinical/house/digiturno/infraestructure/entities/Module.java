@@ -1,5 +1,6 @@
 package com.example.clinical.house.digiturno.infraestructure.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -21,9 +22,14 @@ public class Module {
     @Setter
     private String name;
 
+    @ManyToOne
+    @JoinColumn(name = "headquarter_id")
+    @JsonIgnore
+    private Headquarter headquarter;
 
-    public Module(String name) {
+    public Module(String name, Headquarter headquarter) {
         this.name = name;
+        this.headquarter = headquarter;
     }
 
 }

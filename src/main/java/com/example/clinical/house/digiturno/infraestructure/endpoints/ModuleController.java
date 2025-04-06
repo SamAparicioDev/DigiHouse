@@ -9,18 +9,27 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/module")
 public class ModuleController {
     @Autowired
     private ModuleService moduleService;
+
     @GetMapping("/get")
-    public ResponseEntity<List<Module>> getAllModules(){
+    public ResponseEntity<List<Module>> getAllModules() {
         return new ResponseEntity<>(moduleService.listAll(), HttpStatus.OK);
     }
+
+    @GetMapping("/get/headquarter")
+    public ResponseEntity<List<Module>> getModulesByHeadquarter(@RequestParam(required = false) UUID headquarterId) {
+        List<Module> modules = moduleService.getModuleByHeadquarterId(headquarterId);
+        return new ResponseEntity<>(modules, HttpStatus.OK);
+    }
+
     @PostMapping("/save")
-    public ResponseEntity<Module> createModule(@RequestBody ModuleDTO module){
-        return new ResponseEntity<>(moduleService.saveModule(module),HttpStatus.CREATED);
+    public ResponseEntity<Module> createModule(@RequestBody ModuleDTO module) {
+        return new ResponseEntity<>(moduleService.saveModule(module), HttpStatus.CREATED);
     }
 }
